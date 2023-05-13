@@ -80,10 +80,10 @@ export default function Profile() {
       <div className="">
       <section className="mb-32 text-gray-800">
         <div className="bg-white">
-        <img src={profile.coverUrl} alt="Cover Image" className="w-full max-h-[500px] object-cover absolute"/>
+        <Image src={profile.coverUrl} alt="Cover Image" className="w-full max-h-[500px] object-cover absolute"/>
           <div className="flex flex-wrap items-center">
             <div className="hidden lg:flex mt-64 grow-0 relative shrink-0 basis-auto lg:w-9/12 xl:w-4/12">
-              <img src={profile?.avatarUrl} alt="Profile"
+              <Image src={profile?.avatarUrl} alt="Profile"
                   className="w-9/12 h-96 object-cover ml-10 rounded-full" />
             </div>
             <div className="grow-0 relative shrink-0 basis-auto lg:w-6/12 xl:w-8/12">
@@ -139,7 +139,7 @@ export default function Profile() {
               
               <div key={pub.id} className='shadow p-8 rounded mb-8 w-2/3'>
                 <div className="mb-5 flex flex-row">
-                <img
+                <Image
                   src={profile.avatarUrl}
                   className="w-12 h-12 rounded-full shadow-lg border border-zinc-900"
                   alt="Avatar" />
@@ -181,7 +181,7 @@ export default function Profile() {
                       let url = `http://lens.infura-ipfs.io/ipfs/${result}`
                       return (
                         <div className="ml-[62px]">
-                        <img src={url} className="max-w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
+                        <Image alt="" src={url} className="max-w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                         
                       )
@@ -189,7 +189,7 @@ export default function Profile() {
                       let url = e.original.url
                       return (
                         <div className="ml-[62px] ">
-                        <img src={url} className="w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
+                        <Image alt="" src={url} className="w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                       )
                     }
