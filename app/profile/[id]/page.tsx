@@ -104,20 +104,20 @@ export default function Profile() {
                   </p>
               </div> 
               <div className="flex justify-between m-auto">
-                  {profile.attributes.map((e) => {
+                  {profile.attributes.map((e : any) => {
                     if (e.key == "location") {
                     return (
-                    <p className="text-gray-500 mb-6">
+                    <p key={e.value} className="text-gray-500 mb-6">
                     Location:<span className="font-semibold text-[#000]">{e.value}</span></p> 
                     )
                     }else if (e.key == "website"){
                       return (
-                        <p className="text-gray-500 mb-6">
+                        <p key={e.value} className="text-gray-500 mb-6">
                         Website:<a className="font-semibold underline cursor-pointer text-[#000]" target="_blank" href={e.value}>{e.value}</a></p> 
                       )
                     }else if (e.key == "twitter"){
                       return (
-                        <p className="text-gray-500 mb-6">
+                        <p key={e.value} className="text-gray-500 mb-6">
                         Twitter:<a className="font-semibold underline text-[#000]" href={`https://twitter.com/${e.value}`} target="_blank" >
                           {e.value}
                         </a></p> 
@@ -134,7 +134,7 @@ export default function Profile() {
 
       <div className='flex flex-col justify-center items-center'>
         {
-            publications.map(pub => (
+            publications.map((pub: any) => (
               <>
               
               <div key={pub.id} className='shadow p-8 rounded mb-8 w-2/3'>
@@ -153,13 +153,13 @@ export default function Profile() {
                 </div>
                 <p className="text-base font-semibold ml-[62px] overflow-hidden mb-6">{pub.metadata.content}</p>
 
-                {pub.metadata.media.map((e) => {
+                {pub.metadata.media.map((e: any) => {
                   if(e.original.mimeType == "video/mp4" || e.original.mimeType == "video/quicktime"){
                     if(e.original.url.startsWith('ipfs://')) {
                       let result = e.original.url.substring(7, e.original.url.length)
                       let url = `http://lens.infura-ipfs.io/ipfs/${result}`
                       return (
-                        <div className="ml-[62px]">
+                        <div key={url} className="ml-[62px]">
                         <video controls className="shadow-lg rounded-lg relative overflow-hidden bg-no-repeat bg-cover w-[900px] h-[500px] object-contain" >
                           <source src={url} type="video/mp4"/>
                         </video> 
@@ -168,7 +168,7 @@ export default function Profile() {
                     } else {
                       let url = e.original.url
                       return (
-                        <div className="ml-[62px]">
+                        <div key={url} className="ml-[62px]">
                         <video controls className="shadow-lg rounded-lg relative overflow-hidden bg-no-repeat bg-cover w-[900px] h-[500px] object-contain" >
                           <source src={url} type="video/mp4"/>
                         </video>
@@ -180,7 +180,7 @@ export default function Profile() {
                       let result = e.original.url.substring(7, e.original.url.length)
                       let url = `http://lens.infura-ipfs.io/ipfs/${result}`
                       return (
-                        <div className="ml-[62px]">
+                        <div key={url} className="ml-[62px]">
                         <Image alt="" src={url} className="max-w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                         
@@ -188,7 +188,7 @@ export default function Profile() {
                     } else {
                       let url = e.original.url
                       return (
-                        <div className="ml-[62px] ">
+                        <div key={url} className="ml-[62px] ">
                         <Image alt="" src={url} className="w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                       )

@@ -23,7 +23,7 @@ export default function Home() {
       /* fetch profiles from Lens API */
       let response = await client.query({ query: explorePublications })
       /* loop over profiles, create properly formatted ipfs image links */
-      let publicationData = await Promise.all(response.data.explorePublications.items.map(async publicationInfo => {
+      let publicationData = await Promise.all(response.data.explorePublications.items.map(async (publicationInfo: any) => {
         let publication = { ...publicationInfo }
         let picture = publication.profile?.picture
         if (picture && picture?.original && picture?.original?.url) {
@@ -51,7 +51,7 @@ export default function Home() {
       /* fetch profiles from Lens API */
       let response = await client.query({ query: exploreProfiles })
       /* loop over profiles, create properly formatted ipfs image links */
-      let profileData = await Promise.all(response.data.exploreProfiles.items.map(async profileInfo => {
+      let profileData = await Promise.all(response.data.exploreProfiles.items.map(async (profileInfo: any) => {
         let profile = { ...profileInfo }
         let picture = profile?.picture
         if (picture && picture.original && picture.original.url) {
@@ -86,7 +86,7 @@ export default function Home() {
             <ul className="flex flex-col py-4">
               <li>
                 {
-                  profiles.map(profile => (
+                  profiles.map((profile: any) => (
                     <div key={profile.id} className='w-[22rem] shadow-md p-2 rounded-lg mb-8 flex flex-col items-center'>
                       <div className="flex w-full overflow-hidden">
                         <Image alt="" className='w-12 h-12 rounded-full' src={profile?.avatarUrl || 'https://picsum.photos/200'} />
@@ -115,7 +115,7 @@ export default function Home() {
         <div className='flex flex-col mt-6 ml-[16rem] relative items-center'>
         <h1 className='text-3xl mb-3 font-bold ml-3'>Explore Lens 🌿</h1>
         {
-            publications?.map(pub => (
+            publications?.map((pub: any) => (
               <>
               
               <div key={pub.id} className='shadow p-8 rounded mb-8 w-[70%]'>
@@ -136,13 +136,13 @@ export default function Home() {
               </Link>
                 <p className="text-base font-semibold ml-[62px] overflow-hidden mb-6">{pub?.metadata?.content}</p>
 
-                {pub?.metadata?.media?.map((e) => {
+                {pub?.metadata?.media?.map((e: any) => {
                   if(e.original.mimeType == "video/mp4" || e.original.mimeType == "video/quicktime"){
                     if(e.original.url.startsWith('ipfs://')) {
                       let result = e.original.url.substring(7, e.original.url.length)
                       let url = `http://lens.infura-ipfs.io/ipfs/${result}`
                       return (
-                        <div className="ml-[62px]">
+                        <div key={url} className="ml-[62px]">
                         <video controls className="shadow-lg rounded-lg relative overflow-hidden bg-no-repeat bg-cover w-[900px] h-[500px] object-contain" >
                           <source src={url} type="video/mp4"/>
                         </video> 
@@ -151,7 +151,7 @@ export default function Home() {
                     } else {
                       let url = e.original.url
                       return (
-                        <div className="ml-[62px]">
+                        <div key={url} className="ml-[62px]">
                         <video controls className="shadow-lg rounded-lg relative overflow-hidden bg-no-repeat bg-cover w-[900px] h-[500px] object-contain" >
                           <source src={url} type="video/mp4"/>
                         </video>
@@ -163,7 +163,7 @@ export default function Home() {
                       let result = e.original.url.substring(7, e.original.url.length)
                       let url = `http://lens.infura-ipfs.io/ipfs/${result}`
                       return (
-                        <div className="ml-[62px]">
+                        <div key={url} className="ml-[62px]">
                         <Image alt="" src={url} className="max-w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                         
@@ -171,7 +171,7 @@ export default function Home() {
                     } else {
                       let url = e.original.url
                       return (
-                        <div className="ml-[62px] ">
+                        <div key={url} className="ml-[62px] ">
                         <Image alt="" src={url} className="w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                       )
