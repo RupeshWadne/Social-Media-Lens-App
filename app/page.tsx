@@ -26,7 +26,7 @@ export default function Home() {
       let publicationData = await Promise.all(response.data.explorePublications.items.map(async (publicationInfo: any) => {
         let publication = { ...publicationInfo }
         let picture = publication.profile?.picture
-        if (picture && picture?.original && picture?.original?.url) {
+        if (picture && picture.original && picture.original.url) {
           if (picture.original.url.startsWith('ipfs://')) {
             let result = picture.original.url.substring(7, picture.original.url.length)
             publication.avatarUrl = `http://lens.infura-ipfs.io/ipfs/${result}`
@@ -54,7 +54,7 @@ export default function Home() {
       let profileData = await Promise.all(response.data.exploreProfiles.items.map(async (profileInfo: any) => {
         let profile = { ...profileInfo }
         let picture = profile?.picture
-        if (picture && picture.original && picture.original.url) {
+        if (picture.__typename === 'MediaSet') {
           if (picture?.original?.url.startsWith('ipfs://')) {
             let result = picture.original.url.substring(7, picture.original.url.length)
             profile.avatarUrl = `http://lens.infura-ipfs.io/ipfs/${result}`
@@ -89,7 +89,7 @@ export default function Home() {
                   profiles.map((profile: any) => (
                     <div key={profile.id} className='w-[22rem] shadow-md p-2 rounded-lg mb-8 flex flex-col items-center'>
                       <div className="flex w-full overflow-hidden">
-                        <Image alt="" className='w-12 h-12 rounded-full' src={profile?.avatarUrl || 'https://picsum.photos/200'} />
+                        <Image width="400" height="400" alt="" className='w-12 h-12 rounded-full' src={profile?.avatarUrl || 'https://picsum.photos/200'} />
                         <p className='text-base font-bold mt-3 ml-2'>{profile?.name}</p>
                       </div>
                       <div className="flex w-full flex-row justify-between overflow-hidden">
@@ -121,7 +121,7 @@ export default function Home() {
               <div key={pub.id} className='shadow p-8 rounded mb-8 w-[70%]'>
               <Link href={`/profile/${pub?.profile?.handle}`}>
                 <div className="mb-5 flex flex-row">
-                <Image
+                <Image width="400" height="400"
                   src={pub?.avatarUrl}
                   className="w-12 h-12 object-cover rounded-full shadow-lg border border-zinc-900"
                   alt="profile" />
@@ -164,7 +164,7 @@ export default function Home() {
                       let url = `http://lens.infura-ipfs.io/ipfs/${result}`
                       return (
                         <div key={url} className="ml-[62px]">
-                        <Image alt="" src={url} className="max-w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
+                        <Image width="400" height="400" alt="" src={url} className="max-w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                         
                       )
@@ -172,7 +172,7 @@ export default function Home() {
                       let url = e.original.url
                       return (
                         <div key={url} className="ml-[62px] ">
-                        <Image alt="" src={url} className="w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
+                        <Image width="400" height="400" alt="" src={url} className="w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                       )
                     }
