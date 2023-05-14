@@ -80,7 +80,7 @@ export default function Profile() {
       <div className="">
       <section className="mb-32 text-gray-800">
         <div className="bg-white">
-        <Image width="600" height="600" src={profile?.coverUrl || "/profile-icon.png"} alt="Cover Image" className="w-full max-h-[500px] object-cover absolute"/>
+        <Image width="600" height="600" src={profile?.coverUrl || "/Lens.jpeg"} alt="Cover Image" className="w-full max-h-[500px] object-cover absolute"/>
           <div className="flex flex-wrap items-center">
             <div className="hidden lg:flex mt-64 grow-0 relative shrink-0 basis-auto lg:w-9/12 xl:w-4/12">
               <Image width="600" height="600" src={profile?.avatarUrl || "/profile-icon.png"} alt="Profile"
@@ -103,23 +103,23 @@ export default function Profile() {
                     Following: <span className="font-semibold text-[#000]">{profile?.stats?.totalFollowing}</span> 
                   </p>
               </div> 
-              <div className="flex justify-between m-auto">
-                  {profile?.attributes.map((e : any) => {
+              <div className="flex justify-between overflow-hidden w-full flex-wrap h-full m-auto">
+                  {profile?.attributes?.map((e : any) => {
                     if (e.key == "location") {
                     return (
-                    <p key={e.value} className="text-gray-500 mb-6">
-                    Location:<span className="font-semibold text-[#000]">{e.value}</span></p> 
+                    <p key={e.value} className="text-gray-500 mb-6 pr-2">
+                    Location:<span className="font-semibold text-[#000]">{e.value || "0"}</span></p> 
                     )
                     }else if (e.key == "website"){
                       return (
-                        <p key={e.value} className="text-gray-500 mb-6">
-                        Website:<a className="font-semibold underline cursor-pointer text-[#000]" target="_blank" href={e.value}>{e.value}</a></p> 
+                        <p key={e.value} className="text-gray-500 mb-6 pr-2">
+                        Website:<a className="font-semibold underline cursor-pointer text-[#000]" target="_blank" href={e.value}>{e.value || "0"}</a></p> 
                       )
                     }else if (e.key == "twitter"){
                       return (
                         <p key={e.value} className="text-gray-500 mb-6">
                         Twitter:<a className="font-semibold underline text-[#000]" href={`https://twitter.com/${e.value}`} target="_blank" >
-                          {e.value}
+                          {e.value || "0"}
                         </a></p> 
                       )
                     }

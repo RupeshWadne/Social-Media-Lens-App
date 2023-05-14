@@ -89,7 +89,7 @@ export default function Home() {
                   profiles.map((profile: any) => (
                     <div key={profile.id} className='w-[22rem] shadow-md p-2 rounded-lg mb-8 flex flex-col items-center'>
                       <div className="flex w-full overflow-hidden">
-                        <Image width="400" height="400" alt="" className='w-12 h-12 rounded-full' src={profile?.avatarUrl || 'https://picsum.photos/200'} />
+                        <Image width="400" height="400" alt="" className='w-12 h-12 rounded-full' src={profile?.avatarUrl || '/profile.png'} />
                         <p className='text-base font-bold mt-3 ml-2'>{profile?.name}</p>
                       </div>
                       <div className="flex w-full flex-row justify-between overflow-hidden">
@@ -122,7 +122,7 @@ export default function Home() {
               <Link href={`/profile/${pub?.profile?.handle}`}>
                 <div className="mb-5 flex flex-row">
                 <Image width="400" height="400"
-                  src={pub?.avatarUrl}
+                  src={pub?.avatarUrl || "/profile.png"}
                   className="w-12 h-12 object-cover rounded-full shadow-lg border border-zinc-900"
                   alt="profile" />
                   <div className="ml-3">
