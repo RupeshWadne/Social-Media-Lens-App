@@ -19,7 +19,7 @@ const nextConfig = {
       'media0.giphy.com',
       'media3.giphy.com',
       'media.orb.ac',
-      ""
+      "ik.imagekit.io"
     ],
   },
 }

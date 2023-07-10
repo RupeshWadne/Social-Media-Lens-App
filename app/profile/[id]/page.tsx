@@ -76,49 +76,48 @@ export default function Profile() {
   return (
     <>
 
-    <div className=''>
+    <div className='bg-gradient-to-r from-zinc-300 to-gray-400'>
       <div className="">
-      <section className="mb-32 text-gray-800">
-        <div className="bg-white">
-        <Image width="600" height="600" src={profile?.coverUrl || "/Lens.jpeg"} alt="Cover Image" className="w-full max-h-[500px] object-cover absolute"/>
+      <section className="mb-32">
+        <div className="bg-gradient-to-r from-zinc-300 to-gray-400">
+        <Image width="600" height="600" src={profile?.coverUrl || "/Lens.jpeg"} alt="Cover Image" className="w-full h-[500px] object-cover absolute border-b-2 border-violet-700"/>
           <div className="flex flex-wrap items-center">
             <div className="hidden lg:flex mt-64 grow-0 relative shrink-0 basis-auto lg:w-9/12 xl:w-4/12">
-              <Image width="600" height="600" src={profile?.avatarUrl || "/profile-icon.png"} alt="Profile"
-                  className="w-9/12 h-96 object-cover ml-10 rounded-full" />
+              <Image width="600" height="600" src={profile?.avatarUrl || "/profile-icon.png"} alt="Profile" className="w-9/12 h-96 object-cover ml-10 rounded-full border-2 border-green-500"/>
             </div>
             <div className="grow-0 relative shrink-0 basis-auto lg:w-6/12 xl:w-8/12">
-            <div className="px-6 py-12 mt-80 shadow-lg md:px-12 w-9/12 bg-white rounded-xl">
+            <div className="px-6 py-12 mt-80 md:px-12 w-9/12 bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 rounded-xl border-2 border-green-500 shadow-[5px_5px_0px_1px_rgba(40,28,120)]">
               <div>
-               <h2 className="text-2xl font-bold mb-2">{profile?.name}</h2>
-               <h2 className="text-cyan-400 mb-2">@{profile?.handle}</h2>
-                <p className="uppercase text-red-600 font-bold mb-6 flex items-center">
+               <h2 className="text-2xl text-white font-bold mb-2">{profile?.name}</h2>
+               <h2 className="text-green-700 font-semibold underline mr-2 mb-2">@{profile?.handle}</h2>
+                <p className="uppercase text-slate-100 font-bold mb-6 flex items-center underline decoration-red-600">
                  {profile?.bio}
                 </p>
               </div>   
-              <div className="flex justify-between w-6/12">
-                  <p className="text-gray-500 mb-6">
-                    Followers: <span className="font-semibold text-[#000]">{profile?.stats?.totalFollowers}</span>         
+              <div className="flex text-zinc-300 justify-between w-6/12">
+                  <p className="mb-6">
+                    Followers: <span className="font-semibold">{profile?.stats?.totalFollowers}</span>         
                   </p>
-                  <p className="text-gray-500 mb-6 ml-6">
-                    Following: <span className="font-semibold text-[#000]">{profile?.stats?.totalFollowing}</span> 
+                  <p className="mb-6 ml-6">
+                    Following: <span className="font-semibold">{profile?.stats?.totalFollowing}</span> 
                   </p>
               </div> 
-              <div className="flex justify-between overflow-hidden w-full flex-wrap h-full m-auto">
+              <div className="flex justify-between text-zinc-300 overflow-hidden w-full flex-wrap h-full m-auto">
                   {profile?.attributes?.map((e : any) => {
                     if (e.key == "location") {
                     return (
-                    <p key={e.value} className="text-gray-500 mb-6 pr-2">
-                    Location:<span className="font-semibold text-[#000]">{e.value || "0"}</span></p> 
+                    <p key={e.value} className="mb-6 pr-2">
+                    Location:<span className="font-semibold">{e.value || "0"}</span></p> 
                     )
                     }else if (e.key == "website"){
                       return (
-                        <p key={e.value} className="text-gray-500 mb-6 pr-2">
-                        Website:<a className="font-semibold underline cursor-pointer text-[#000]" target="_blank" href={e.value}>{e.value || "0"}</a></p> 
+                        <p key={e.value} className="mb-6 pr-2">
+                        Website:<a className="font-semibold underline cursor-pointer" target="_blank" href={e.value}>{e.value || "0"}</a></p> 
                       )
                     }else if (e.key == "twitter"){
                       return (
-                        <p key={e.value} className="text-gray-500 mb-6">
-                        Twitter:<a className="font-semibold underline text-[#000]" href={`https://twitter.com/${e.value}`} target="_blank" >
+                        <p key={e.value} className="mb-6">
+                        Twitter:<a className="font-semibold underline" href={`https://twitter.com/${e.value}`} target="_blank" >
                           {e.value || "0"}
                         </a></p> 
                       )
@@ -137,7 +136,7 @@ export default function Profile() {
             publications.map((pub: any) => (
               <>
               
-              <div key={pub?.id} className='shadow p-8 rounded mb-8 w-2/3'>
+              <div key={pub?.id} className='shadow-[5px_5px_0px_0px_green] border-2 border-green-600 bg-gradient-to-r from-violet-300 to-violet-400 p-8 rounded mb-8 w-2/3'>
                 <div className="mb-5 flex flex-row">
                 <Image width="600" height="600"
                   src={profile?.avatarUrl || "/profile.png"}
@@ -145,10 +144,10 @@ export default function Profile() {
                   alt="Avatar" />
                   <div className="ml-3">
                     <div className="flex flex-row">
-                    <p className="font-semibold">{pub?.profile?.name}</p>
+                    <p className="font-bold">{pub?.profile?.name}</p>
                       <p className="ml-2 mt-1 font-medium text-red-600 text-xs">{pub?.createdAt.substring(0, 10)}</p>
                     </div>
-                    <p className="text-cyan-400 mr-2">{pub?.metadata?.name}</p>
+                    <p className="text-green-700 font-semibold underline mr-2">{pub?.metadata?.name}</p>
                   </div>
                 </div>
                 <p className="text-base font-semibold ml-[62px] overflow-hidden mb-6">{pub?.metadata?.content}</p>
@@ -180,7 +179,7 @@ export default function Profile() {
                       let result = e?.original?.url?.substring(7, e.original.url.length)
                       let url = `http://lens.infura-ipfs.io/ipfs/${result}`
                       return (
-                        <div key={url} className="ml-[62px]">
+                        <div key={url} className="ml-[62px] w-fit grid grid-cols-1">
                         <Image width="600" height="600" alt="" src={url || "/profile.png"} className="max-w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                         
@@ -188,8 +187,8 @@ export default function Profile() {
                     } else {
                       let url = e?.original?.url
                       return (
-                        <div key={url} className="ml-[62px] ">
-                        <Image width="600" height="600" alt="" src={url || "/profile.png"} className="w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
+                        <div key={url} className="ml-[62px] w-fit">
+                        <Image width="600" height="600" alt="" src={url || "/profile.png"} className="w-full max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                       )
                     }

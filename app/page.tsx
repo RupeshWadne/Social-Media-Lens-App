@@ -1,6 +1,6 @@
 
 'use client'
-
+import LoadingScreen from "./LoadingScreen"
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 import { client, exploreProfiles, explorePublications } from '../api'
@@ -11,11 +11,16 @@ export default function Home() {
   /* create initial state to hold array of profiles */
   const [profiles, setProfiles] = useState<any>([])
   const [publications, setPublications] = useState<any>([])
+  const [isLoading, setLoading] = useState<boolean>(true)
+
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000); // Adjust the duration as per your preference
+
     fetchProfiles()
-  }, [])
-  useEffect(() => {
     fetchPublication()
+    return () => clearTimeout(timer);
   }, [])
 
   async function fetchPublication(){
@@ -73,13 +78,14 @@ export default function Home() {
     }
   }
 
+  if (isLoading) return <LoadingScreen/>
 
   return (
 
     <>
-      <div className="min-h-screen w-fit flex flex-row justify-stretch bg-gray-100">
-        <div className="fixed top-0 bottom-0 w-96 overflow-y-scroll scrollbar scrollbar-thumb-gray-700 scrollbar-thin">
-          <div className="flex items-center justify-center h-20 w-full shadow-md">
+      <div className="flex justify-between bg-gradient-to-r from-zinc-300 to-gray-400 font-Anek">
+        <div className="fixed top-0 bottom-0 w-96 overflow-y-scroll scrollbar scrollbar-thumb-gray-700 scrollbar-thin border-r-2 border-green-500">
+          <div className="flex items-center justify-center h-20 w-full shadow-md bg-zinc-300 border-b-2 border-black sticky top-0 z-10">
             <h1 className='text-3xl mb-3 text-center font-bold ml-3'>Most Popular🦝</h1>
           </div>
           <div className="flex flex-col w-60 ml-4">
@@ -87,19 +93,19 @@ export default function Home() {
               <li>
                 {
                   profiles.map((profile: any) => (
-                    <div key={profile.id} className='w-[22rem] shadow-md p-2 rounded-lg mb-8 flex flex-col items-center'>
+                    <div key={profile.id} className='bg-gradient-to-r from-slate-900 via-purple-900 to-slate-900 w-[22rem] p-2 rounded-lg mb-8 flex flex-col items-center border-2 border-green-500 shadow-[5px_5px_0px_1px_rgba(40,28,120)]'>
                       <div className="flex w-full overflow-hidden">
                         <Image width="400" height="400" alt="" className='w-12 h-12 rounded-full' src={profile?.avatarUrl || '/profile.png'} />
-                        <p className='text-base font-bold mt-3 ml-2'>{profile?.name}</p>
+                        <p className='text-base text-white font-bold mt-3 ml-2'>{profile?.name}</p>
                       </div>
                       <div className="flex w-full flex-row justify-between overflow-hidden">
                         <Link href={`/profile/${profile?.handle}`}>
-                          <p className='cursor-pointer text-violet-600 text-lg flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 hover:text-gray-800'>{profile?.handle}</p>
+                          <p className='cursor-pointer text-green-600 text-lg flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 hover:text-green-200'>{profile?.handle}</p>
                         </Link>
-                        <p className='text-pink-600 text-sm font-medium text-center'>{profile?.stats.totalFollowers} followers</p>
+                        <p className='text-green-400 text-sm font-medium text-center'>{profile?.stats.totalFollowers} followers</p>
                       </div>
-                      <div className="flex flex-row justify-around w-full">
-                        <p className="flex text-black pt-2 text-sm justify-between w-fit "><Image className="w-4 mr-1 mt-1 h-4" src="/comments.png" alt="me" width="15" height="15" />{profile.stats?.totalComments}</p>
+                      <div className="flex flex-row justify-around text-white w-full mb-2">
+                        <p className="flex pt-2 text-sm justify-between w-fit "><Image className="w-4 mr-1 mt-1 h-4" src="/comments.png" alt="me" width="15" height="15" />{profile.stats?.totalComments}</p>
                         <p className="flex pt-2 text-sm justify-between w-fit "><Image className="w-4 mr-1 mt-1 h-4" src="/retweet-.png" alt="me" width="15" height="15" />{profile.stats?.totalMirrors}</p>
                         <p className="flex pt-2 text-sm justify-between w-fit "><Image className="w-4 mr-1 mt-1 h-4" src="/plus.png" alt="me" width="15" height="15" />{profile.stats?.totalPosts}</p>
                       </div>
@@ -112,13 +118,15 @@ export default function Home() {
         </div>
 
         {/* Explore LENS FEED */}
-        <div className='flex flex-col mt-6 ml-[16rem] relative items-center'>
-        <h1 className='text-3xl mb-3 font-bold ml-3'>Explore Lens 🌿</h1>
+        <div className='flex flex-wrap h-fit w-fit flex-col mt-6 ml-[20rem] justify-center items-center'>
+          <div className="w-full h-full">
+            <h1 className='w-full text-3xl mb-3 font-bold text-center sticky'>Explore Lens 🌿</h1>
+          </div>
         {
             publications?.map((pub: any) => (
               <>
               
-              <div key={pub.id} className='shadow p-8 rounded mb-8 w-[70%]'>
+              <div key={pub.id} className='p-8 rounded mb-8 w-[70%] shadow-[5px_5px_0px_0px_green] border-2 border-green-600 bg-gradient-to-r from-violet-300 to-violet-400'>
               <Link href={`/profile/${pub?.profile?.handle}`}>
                 <div className="mb-5 flex flex-row">
                 <Image width="400" height="400"
@@ -127,10 +135,10 @@ export default function Home() {
                   alt="profile" />
                   <div className="ml-3">
                     <div className="flex flex-row">
-                    <p className="font-semibold">{pub?.profile?.name}</p>
+                    <p className="font-bold">{pub?.profile?.name}</p>
                       <p className="ml-2 mt-1 font-medium text-red-600 text-xs">{pub?.createdAt?.substring(0, 10)}</p>
                     </div>
-                    <p className="text-cyan-400 mr-2">@{pub?.profile?.handle}</p>
+                    <p className="text-green-700 font-semibold underline mr-2">@{pub?.profile?.handle}</p>
                   </div>
                 </div>
               </Link>
@@ -163,7 +171,7 @@ export default function Home() {
                       let result = e.original.url.substring(7, e.original.url.length)
                       let url = `http://lens.infura-ipfs.io/ipfs/${result}`
                       return (
-                        <div key={url} className="ml-[62px]">
+                        <div key={url} className="ml-[62px] w-fit">
                         <Image width="400" height="400" alt="" src={url} className="max-w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                         
@@ -171,8 +179,8 @@ export default function Home() {
                     } else {
                       let url = e.original.url
                       return (
-                        <div key={url} className="ml-[62px] ">
-                        <Image width="400" height="400" alt="" src={url} className="w-[700px] max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
+                        <div key={url} className="ml-[62px] w-fit">
+                        <Image width="400" height="400" alt="" src={url} className="w-full max-h-[700px] object-contain shadow-lg rounded-lg relative overflow-hidden mb-4"/>
                         </div>
                       )
                     }
@@ -189,7 +197,7 @@ export default function Home() {
             ))
         }
       </div>
-      </div>
+    </div>
     </>
   )
 }
