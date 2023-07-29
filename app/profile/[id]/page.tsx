@@ -45,6 +45,11 @@ export default function Profile() {
     }
   };
 
+  if('original' in profile?.coverPicture){
+    var originalValue = profile?.coverPicture?.original;
+  } else{
+    <Image width="600" height="600" alt="cover" src="/Lens.jpg"/>
+  }
   if (loading) return <LoadingScreen />
 
   return (
@@ -52,8 +57,9 @@ export default function Profile() {
 
       <section className="mb-32">
         <div className="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500">
-
-          <Image width="600" height="600" src={profile?.coverPicture?.original?.url || "/Lens.jpeg"} alt="Cover Image" className="w-full h-[500px] hidden lg:flex object-cover absolute border-b-2 border-violet-700" />
+          
+          <Image width="600" height="600" src={originalValue?.url || "/Lens.jpeg"} alt="Cover Image" className="w-full h-[500px] hidden lg:flex object-cover absolute border-b-2 border-violet-700" />
+          
           <div className="hidden lg:flex flex-wrap items-center">
             <div className="hidden lg:flex mt-64 grow-0 relative shrink-0 basis-auto lg:w-9/12 xl:w-4/12">
               <Image width="600" height="600" src={profile?.picture?.original?.url || "/profile-icon.png"} alt="Profile" className="lg:w-9/12 lg:h-96 object-cover lg:ml-10 lg:rounded-full border-2 border-green-500" />
