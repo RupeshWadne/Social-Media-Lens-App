@@ -28,6 +28,8 @@ export default function Profile() {
   let { data: profile, loading } = useProfile({ handle })
   console.log(profile)
 
+  const cover = profile?.coverPicture
+
   const { connectAsync } = useConnect({
     connector: new InjectedConnector(),
   });
@@ -45,11 +47,6 @@ export default function Profile() {
     }
   };
 
-  if('original' in profile?.coverPicture){
-    var originalValue = profile?.coverPicture?.original;
-  } else{
-    <Image width="600" height="600" alt="cover" src="/Lens.jpg"/>
-  }
   if (loading) return <LoadingScreen />
 
   return (
@@ -58,7 +55,7 @@ export default function Profile() {
       <section className="mb-32">
         <div className="bg-gradient-to-r from-rose-400 via-fuchsia-500 to-indigo-500">
           
-          <Image width="600" height="600" src={originalValue?.url || "/Lens.jpeg"} alt="Cover Image" className="w-full h-[500px] hidden lg:flex object-cover absolute border-b-2 border-violet-700" />
+          <Image width="600" height="600" src={profile?.coverPicture?.original.url || "/Lens.jpeg"} alt="Cover Image" className="w-full h-[500px] hidden lg:flex object-cover absolute border-b-2 border-violet-700" />
           
           <div className="hidden lg:flex flex-wrap items-center">
             <div className="hidden lg:flex mt-64 grow-0 relative shrink-0 basis-auto lg:w-9/12 xl:w-4/12">
@@ -111,7 +108,7 @@ export default function Profile() {
                 <div className="flex justify-between text-zinc-300 overflow-hidden w-full flex-wrap h-full m-auto">
 
 
-                  {profile?.__attributes?.map((e: any) => {
+                  {profile?.__attributes?.map((e) => {
                     if (e.key == "location") {
                       return (
                         <p key={e.value} className="mb-6 pr-2">
@@ -148,10 +145,6 @@ function FollowComponent({
   wallet,
   profile,
   isConnected,
-}: {
-  isConnected: boolean;
-  profile: Profile;
-  wallet: ProfileOwnedByMe;
 }) {
   const { execute: follow, error } = useFollow({
     followee: profile,
@@ -175,8 +168,6 @@ function FollowComponent({
 
 function Publications({
   profile
-}: {
-  profile: Profile
 }) {
   let { data: publications, loading } = usePublications({
     profileId: profile.id,
@@ -198,7 +189,7 @@ function Publications({
   return (
     <>
       {
-        publications?.map((pub: any) => (
+        publications?.map((pub) => (
           <>
 
             <motion.div key={pub?.id} className='shadow-[5px_5px_0px_0px_green] border-2 border-green-600 bg-gradient-to-r from-violet-300 to-violet-400 p-8 rounded mb-8 w-2/3'>
@@ -222,7 +213,7 @@ function Publications({
               </motion.div>
               <p className="text-base font-semibold lg:ml-[62px] overflow-hidden mb-6">{pub?.metadata?.content}</p>
 
-              {pub?.metadata?.media?.map((e: any) => {
+              {pub?.metadata?.media?.map((e) => {
                 if (e.original.mimeType == "video/mp4" || e.original.mimeType == "video/quicktime") {
                   if (e.original.url.startsWith('ipfs://')) {
                     let result = e?.original?.url?.substring(7, e.original.url.length)
