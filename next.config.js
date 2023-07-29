@@ -19,7 +19,19 @@ const nextConfig = {
       'media0.giphy.com',
       'media3.giphy.com',
       'media.orb.ac',
-      "ik.imagekit.io"
+      "ik.imagekit.io",
+      "ipfs://QmQosmUhSHTWd6Quad8qKwGi5rihogb7rU4zeByFpfMRM2",
+      "ipfs://bafybeielthjrpyieqjkkyxopiclgwwv2b5lljxhnk7edcr5brbz3cuu4fe",
+      "ipfs://",
+      "ipfs://bafkreibbsw6acdk7suqcke6wnyzc32ivs3ctllmcfcdoo35hduyuddvkru"
+    ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ipfs',
+        port: '',
+        pathname: '/',
+      },
     ],
   },
 }
