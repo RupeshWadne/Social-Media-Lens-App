@@ -6,7 +6,7 @@ import { useExploreProfiles } from '@lens-protocol/react-web'
 import { motion } from "framer-motion"
 
 
-export default function Profile() {
+export default function Profiles() {
   /* create initial state to hold array of profiles */
   const { data: profiles, loading } = useExploreProfiles({
     limit: 50

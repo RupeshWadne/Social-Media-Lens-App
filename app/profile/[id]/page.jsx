@@ -16,7 +16,7 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
-export default function Profile() {
+export default function Profilex() {
   const { execute: login } = useWalletLogin();
   const { execute: logout } = useWalletLogout();
   const { data: wallet } = useActiveProfile();
